@@ -1,0 +1,33 @@
+Taunt
+Overload
+ImmuneToSpellpower
+Charge
+Battlecry
+Freeze
+Divine Shield
+Secret
+Aura
+Spell Damage
+Windfury
+AdjacentBuff
+Poisonous
+Discover
+Silence
+Stealth
+Deathrattle
+AffectedBySpellPower
+Combo
+Lifesteal
+Inspire
+InvisibleDeathrattle
+AIMustPlay
+Jade Golem
+Adapt
+Quest
+Recruit
+Rush
+Echo
+Magnetic
+Overkill
+Twinspell
+Reborn
