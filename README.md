@@ -1,4 +1,4 @@
-# What-Makes-a-Hearthstone-Card-Legendary
+# What Makes a Hearthstone Card Legendary
 Tree-based machine learning approach to identify the characteristics of legendary card
 
 ## Project Description
