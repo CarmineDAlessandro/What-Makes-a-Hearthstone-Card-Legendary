@@ -4,15 +4,14 @@ import csv
 import pandas as pd
 import re
 
-"""
-Replace the text of a card with a text to be analysed.
-
-Example input:
-[x]Deal $4 damage.\nDiscard a random card.
-Output:
-deal 4 damage discard a random card
-"""
 def clean_text(df, index):
+    """Replace the text of a card with a text to be analysed.
+
+    Example input:
+    [x]Deal $4 damage.\nDiscard a random card.
+    Output:
+    deal 4 damage discard a random card
+    """
 
     text = df.iloc[index, df.columns.get_loc('text')]
 
@@ -31,10 +30,8 @@ def clean_text(df, index):
 
     df.iloc[index, df.columns.get_loc('text')] = text
 
-"""
-Prepare the data to be analysed
-"""
 def prepare_data(df, index):
+    """Prepare the data to be analysed"""
 
     collectible = df.iloc[index, df.columns.get_loc('collectible')]
     armor = df.iloc[index, df.columns.get_loc('armor')]
@@ -75,16 +72,14 @@ def prepare_data(df, index):
     if pd.isna(attack):
         df.iloc[index, df.columns.get_loc('attack')] = 0.0
 
-"""
-The 'machanics' field needs more preparation because of its composition.
-
-Example input:
-[{'name': 'Magnetic'}, {'name': 'Divine Shield'}]
-Output:
-Magnetic,Divine Shield
-"""
 def clean_mechanics(df, index):
+    """The 'machanics' field needs more preparation because of its composition.
 
+    Example input:
+    [{'name': 'Magnetic'}, {'name': 'Divine Shield'}]
+    Output:
+    Magnetic,Divine Shield
+    """
     mechanic = df.iloc[index, df.columns.get_loc('mechanics')]
 
     if not pd.isna(mechanic):
@@ -93,18 +88,16 @@ def clean_mechanics(df, index):
         mechanic = mechanic.replace("'}, {'name': '",",")
         df.iloc[index, df.columns.get_loc('mechanics')] = mechanic
 
-"""
-Encoding of the 'mechanics' to other column fields.
-Valuing the 'number mechanics' field.
-
-Example input:
-Magnetic,Divine Shield
-Output:
-... | Magnetic |  ...  | Divine Shield |  ...  | number mechanics
-... | True     | False | True          | False | 2
-
-"""
 def encode_mechanics(df, index):
+    """Encoding of the 'mechanics' to other column fields.
+    Valuing the 'number mechanics' field.
+
+    Example input:
+    Magnetic,Divine Shield
+    Output:
+    ... | Magnetic |  ...  | Divine Shield |  ...  | number mechanics
+    ... | True     | False | True          | False | 2
+    """
 
     # All False
     for token in mechanics:
@@ -128,22 +121,21 @@ def encode_mechanics(df, index):
     df.iloc[index, df.columns.get_loc('number mechanics')] = count
 
 
-"""
-delete unuseful rows. Basically, there are too many cards because
-the most of the rows refers to cards not in the collection, generated
-cards (like lackeys) or to specific dynamics of the game.
-"""
 def delete_rows(df):
+    """Delete unuseful rows.
+
+    Basically, there are too many cards because
+    the most of the rows refers to cards not in the collection, generated
+    cards (like lackeys) or to specific dynamics of the game.
+    """
 
     df = df.drop(df[df.img.isna()].index)
     df = df.drop(df[df.cost.isna()].index)
     df = df.drop(df[df.rarity.isna()].index)
     return df
 
-"""
-Read the json file containing all the cards and save it as a csv format file
-"""
 def json2csv():
+    """Read the json file containing all the cards and save it as a csv format file"""
 
     # json to dictionary
     file = open('all_json', 'rb')
